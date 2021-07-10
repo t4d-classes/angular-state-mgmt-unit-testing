@@ -6,7 +6,7 @@ Most of Accelebrate's courses are taught privately online or in-person for teams
 
 ## Class Information Page
 
-[https://www.t4d.io/accelebrate-angular-state-management-and-uni-testing-training-07122021](https://www.t4d.io/accelebrate-angular-state-management-and-uni-testing-training-07122021)
+[https://www.t4d.io/accelebrate-angular-state-management-and-unit-testing-training-07122021](https://www.t4d.io/accelebrate-angular-state-management-and-unit-testing-training-07122021)
 
 ## Other Resources
 
