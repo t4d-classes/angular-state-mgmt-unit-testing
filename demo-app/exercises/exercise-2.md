@@ -10,7 +10,7 @@ Instructions: Please complete the following requirements ensuring your solution 
 
 **Step 3.** Add a button above the table that will show/hide the archived users. Non-archived users should always be shown.
 
-**Step 4.** Add a component above the register user component that shows how many users are displayed in the table.
+**Step 4.** Add a component above the Register User component that shows how many users are displayed in the table.
 
 App Component Template:
 ```html
