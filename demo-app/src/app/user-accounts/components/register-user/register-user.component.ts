@@ -41,7 +41,7 @@ export class RegisterUserComponent implements OnInit {
   // actions
   doRegisterUser() {
     this.userAccountsSvc.append(
-      this.registerUserForm.value as NewUser);;
+      this.registerUserForm.value as NewUser);
   }
 
 }

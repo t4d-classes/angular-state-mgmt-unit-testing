@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { User } from '../../models/users';
 import { UserAccountsService } from '../../services/user-accounts.service';
@@ -10,12 +11,14 @@ import { UserAccountsService } from '../../services/user-accounts.service';
 })
 export class RegisteredUsersComponent implements OnInit {
 
-  users: User[]  = [];
+  users$: Observable<User[]> = this.userAccountsSvc.all();
 
   constructor(private userAccountsSvc: UserAccountsService) { }
 
   ngOnInit(): void {
-    this.users = this.userAccountsSvc.all();
+    // this.userAccountsSvc.all().subscribe(users => {
+    //   this.users = users;
+    // });
   }
 
 }

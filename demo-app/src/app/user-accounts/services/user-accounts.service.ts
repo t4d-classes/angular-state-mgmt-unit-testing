@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { User, NewUser } from '../models/users';
 
@@ -7,18 +8,34 @@ import { User, NewUser } from '../models/users';
 })
 export class UserAccountsService {
 
-  private users: User[] = [];
+  private users$ = new BehaviorSubject<User[]>([]);
 
   constructor() { }
 
   all() {
-    return this.users;
+    return this.users$;
   }
 
   append(user: NewUser) {
-    this.users.push({
-      ...user,
-      id: Math.max(...this.users.map(u => u.id), 0) + 1,
-    });
+
+    // let users = this.users$.value;
+
+    // users.push({
+    //   ...user,
+    //   id: Math.max(...users.map(u => u.id), 0) + 1,
+    // });
+
+    let users = this.users$.value;
+
+    users = [
+      ...users,
+      {
+        ...user,
+        id: Math.max(...users.map(u => u.id), 0) + 1,
+      }
+    ];
+
+
+    this.users$.next(users);
   }
 }
