@@ -8,6 +8,23 @@ Instructions: Please complete the following requirements ensuring your solution 
 
 **Step 2.** Place a button on each row of the registered users table. When the button is clicked, mark the user as archived.
 
+- Copy the users array
+- Using the id and the `findIndex` function, find the index of the user to replace in the new array
+- Copy the original user, update the archive, and replace the user in the new users array with the index
+- Output the new array
+
+```javascript
+newUsers = [...users];
+userIndex = newUsers.findIndex(u => u.id === userId);
+originalUser = newUsers[userIndex];
+newUser = {
+  ...originalUser,
+  archived: !originalUser.archived,
+}
+newUsers[userIndex] = newUser
+this.users$.next(newUsers)
+```
+
 **Step 3.** Add a button above the table that will show/hide the archived users. Non-archived users should always be shown.
 
 **Step 4.** Add a component above the Register User component that shows how many users are displayed in the table.
