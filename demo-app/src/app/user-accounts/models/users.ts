@@ -6,6 +6,7 @@ export type User = {
   firstName: string;
   lastName: string;
   title: string;
+  archived: boolean;
 };
 
 export type NewUser = Omit<User, "id">;

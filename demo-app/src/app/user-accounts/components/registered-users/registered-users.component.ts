@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { User } from '../../models/users';
 import { UserAccountsService } from '../../services/user-accounts.service';
@@ -11,17 +12,24 @@ import { UserAccountsService } from '../../services/user-accounts.service';
 })
 export class RegisteredUsersComponent implements OnInit {
 
-  // selectors
-  // selector select data off the state,
-  // and they run when the data change
-  users$: Observable<User[]> = this.userAccountsSvc.all();
+  users$: Observable<User[]> = combineLatest([
+    this.userAccountsSvc.all(),
+    this.userAccountsSvc.showArchived$,
+  ]).pipe(map( ([users, showArchived]) => {
+    if (showArchived) return users;
+    return users.filter(u => !u.archived);
+  }));
 
   constructor(private userAccountsSvc: UserAccountsService) { }
 
   ngOnInit(): void {
-    // this.userAccountsSvc.all().subscribe(users => {
-    //   this.users = users;
-    // });
   }
 
+  toggleShowArchived() {
+    this.userAccountsSvc.toggleShowArchived();
+  }
+
+  archiveUser(userId: number) {
+    this.userAccountsSvc.archive(userId);
+  }
 }

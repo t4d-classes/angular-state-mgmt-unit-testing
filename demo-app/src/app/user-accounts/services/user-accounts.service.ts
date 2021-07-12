@@ -8,38 +8,54 @@ import { User, NewUser } from '../models/users';
 })
 export class UserAccountsService {
 
-  // application state
-  private users$ = new BehaviorSubject<User[]>([] /* initial state */);
+  private _users$ = new BehaviorSubject<User[]>([
+    { id: 1, username: 'bsmith', firstName: 'Bob', lastName: 'Smith', title: 'CEO', archived: false },
+    { id: 2, username: 'jsmith', firstName: 'Jennie', lastName: 'Smith', title: 'CFO', archived: false },
+    { id: 3, username: 'tthompkins', firstName: 'Tina', lastName: 'Thompkins', title: 'CIO', archived: false },
+    { id: 4, username: 'dhellar', firstName: 'Debbie', lastName: 'Hellar', title: 'CTO', archived: false },
+  ]);
+
+  private _showArchived$ = new BehaviorSubject<boolean>(true);
 
   constructor() { }
 
+  get showArchived$() {
+      return this._showArchived$;
+  }
+
   all() {
-    return this.users$;
+    return this._users$;
+  }
+
+  toggleShowArchived() {
+    this._showArchived$.next(!this._showArchived$.value);
   }
 
   append(user: NewUser) {
 
-    // let users = this.users$.value;
+    let users = this._users$.value;
 
-    // users.push({
-    //   ...user,
-    //   id: Math.max(...users.map(u => u.id), 0) + 1,
-    // });
-
-    let users = this.users$.value;
-
-    // each time we received an action,
-    // we produced a new state, and notified the selectors
     users = [
       ...users,
       {
         ...user,
         id: Math.max(...users.map(u => u.id), 0) + 1,
+        archived: false,
       }
     ];
 
+    this._users$.next(users);
+  }
 
-    //  notified the selectors
-    this.users$.next(users);
+  archive(userId: number) {
+    let newUsers = [...this._users$.value];
+    let userIndex = newUsers.findIndex(u => u.id === userId);
+    let originalUser = newUsers[userIndex];
+    let newUser = {
+      ...originalUser,
+      archived: !originalUser.archived,
+    }
+    newUsers[userIndex] = newUser
+    this._users$.next(newUsers)      
   }
 }

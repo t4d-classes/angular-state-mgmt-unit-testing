@@ -4,13 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { RegisteredUsersComponent } from './components/registered-users/registered-users.component';
-
+import { UsersDisplayedCountComponent } from './components/users-displayed-count/users-displayed-count.component';
 
 
 @NgModule({
   declarations: [
     RegisterUserComponent,
-    RegisteredUsersComponent
+    RegisteredUsersComponent,
+    UsersDisplayedCountComponent,
   ],
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { RegisteredUsersComponent } from './components/registered-users/register
   exports: [
     RegisterUserComponent,
     RegisteredUsersComponent,
+    UsersDisplayedCountComponent,
   ],
 })
 export class UserAccountsModule { }
