@@ -8,7 +8,8 @@ import { User, NewUser } from '../models/users';
 })
 export class UserAccountsService {
 
-  private users$ = new BehaviorSubject<User[]>([]);
+  // application state
+  private users$ = new BehaviorSubject<User[]>([] /* initial state */);
 
   constructor() { }
 
@@ -27,6 +28,8 @@ export class UserAccountsService {
 
     let users = this.users$.value;
 
+    // each time we received an action,
+    // we produced a new state, and notified the selectors
     users = [
       ...users,
       {
@@ -36,6 +39,7 @@ export class UserAccountsService {
     ];
 
 
+    //  notified the selectors
     this.users$.next(users);
   }
 }

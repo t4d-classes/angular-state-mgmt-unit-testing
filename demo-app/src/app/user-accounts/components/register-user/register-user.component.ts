@@ -38,7 +38,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   // initiate changes to the stateful data
-  // actions
+  // dispatched a new register user action
   doRegisterUser() {
     this.userAccountsSvc.append(
       this.registerUserForm.value as NewUser);
