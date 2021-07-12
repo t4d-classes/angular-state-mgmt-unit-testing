@@ -2,6 +2,8 @@
 
 Instructions: Please complete the following requirements ensuring your solution meets all of them. Going above and beyond the requirements is great so long as all of the requirements are met. Before coding anything, please read all of the requirements first. If you are unsure about anything, please ask the instructor.
 
+## Steps
+
 **Step 1.** Create a new module named User Accounts.
 
 **Step 2.** In the User Accounts module, create a new component named Register User.
