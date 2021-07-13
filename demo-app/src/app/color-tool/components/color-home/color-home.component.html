@@ -4,6 +4,7 @@
   <!-- STEP: 3 Template -->
   <li *ngFor="let color of colors$ | async">
     {{color.name}} {{color.hexcode}}
+    <button (click)="doDeleteColor(color.id)">X</button>
   </li>
 </ul>
 

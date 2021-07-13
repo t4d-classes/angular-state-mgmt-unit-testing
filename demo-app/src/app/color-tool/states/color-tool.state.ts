@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { State, Action, StateContext } from "@ngxs/store";
 
 import { Color, NewColor } from "../models/colors";
-import { AppendColor } from "../actions/color-actions";
+import { AppendColor, RemoveColor } from "../actions/color-actions";
 
 export interface IColorToolStateModel {
   colors: Color[];
@@ -37,6 +37,27 @@ export class ColorToolState {
         },
       ],
     });
+
+    // ctx.patchState({
+    //   colors: colors.concat({
+    //     ...action.color,
+    //     id: Math.max(...colors.map(c => c.id), 0) + 1,
+    //   }),
+    // });
+  }
+
+  @Action(RemoveColor)
+  removeColor(ctx: StateContext<IColorToolStateModel>, action: RemoveColor) {
+
+    const colors = ctx.getState().colors;
+
+    // similar to this.users$.next(colors)
+    // creating a new state, replacing the properties passed into
+    // patch state
+    ctx.patchState({
+      colors: colors.filter(c => c.id !== action.colorId),
+    });
+
   }
 
 }
