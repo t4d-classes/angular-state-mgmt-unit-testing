@@ -20,7 +20,7 @@ export class UserAccountsService {
   constructor() { }
 
   get showArchived$() {
-      return this._showArchived$;
+    return this._showArchived$;
   }
 
   all() {
@@ -55,7 +55,7 @@ export class UserAccountsService {
       ...originalUser,
       archived: !originalUser.archived,
     }
-    newUsers[userIndex] = newUser
-    this._users$.next(newUsers)      
+    newUsers[userIndex] = newUser;
+    this._users$.next(newUsers);
   }
 }
