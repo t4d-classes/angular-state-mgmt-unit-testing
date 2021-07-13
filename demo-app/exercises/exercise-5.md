@@ -6,7 +6,7 @@ Instructions: Please complete the following requirements ensuring your solution 
 
 **Requirement 1.** Implement two additional math operations: multiply and divide.
 
-**Requirement 2.** Display a history of math operations beneath the buttons. For each history entry display a unique id, the name of the math operation, and the value of the input field.
+**Requirement 2.** Display a history of math operations beneath the buttons. For each history entry display a unique id, the name of the math operation, and the value of the input field. Please do NOT include the new result in the history.
 
 **Requirement 3.** The history should be updated for all math operations: add, subtract, multiply, and divide.
 
