@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { UserAccountsModule } from './user-accounts/user-accounts.module';
 import { ColorToolModule } from './color-tool/color-tool.module';
+import { CalcToolModule } from './calc-tool/calc-tool.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     UserAccountsModule,
     ColorToolModule,
+    CalcToolModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

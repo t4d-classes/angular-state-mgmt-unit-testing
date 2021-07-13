@@ -1,0 +1,12 @@
+<div>
+  Result: {{result$ | async}}
+</div>
+<div>
+  Num: <input type="number" [formControl]="numInput">
+</div>
+<div>
+  <button type="button" (click)="doAdd()">+</button>
+  <button type="button" (click)="doSubtract()">-</button>
+</div>
+
+
