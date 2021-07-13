@@ -7,6 +7,14 @@
 <div>
   <button type="button" (click)="doAdd()">+</button>
   <button type="button" (click)="doSubtract()">-</button>
+  <button type="button" (click)="doMultiply()">*</button>
+  <button type="button" (click)="doDivide()">/</button>
 </div>
+<ul>
+  <li *ngFor="let entry of history$ | async">
+    {{entry.id}} {{entry.opName}} {{entry.opValue}}
+    <button type="button" (click)="doDeleteHistoryEntry(entry.id)">X</button>
+  </li>
+</ul>
 
 

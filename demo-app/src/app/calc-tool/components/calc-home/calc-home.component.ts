@@ -5,7 +5,9 @@ import { FormControl } from '@angular/forms';
 import { Store, Select } from '@ngxs/store';
 
 import { ICalcToolStateModel } from '../../states/calc-tool.state';
-import { Add, Subtract } from '../../actions/calc-actions';
+import { Add, Subtract, Multiply, Divide } from '../../actions/calc-actions';
+import { HistoryEntry } from '../../models/history';
+import { DeleteHistoryEntry } from '../../actions/history-actions';
 
 @Component({
   selector: 'app-calc-home',
@@ -21,6 +23,12 @@ export class CalcHomeComponent implements OnInit {
   })
   result$!: Observable<number>;
 
+  @Select((state: { calcTool: ICalcToolStateModel }) => {
+    return state.calcTool.history;
+  })
+  history$!: Observable<HistoryEntry[]>;
+
+
   constructor(private store: Store) { }
 
   ngOnInit(): void {
@@ -33,5 +41,18 @@ export class CalcHomeComponent implements OnInit {
   doSubtract() {
     this.store.dispatch(new Subtract(this.numInput.value));
   }
+
+  doMultiply() {
+    this.store.dispatch(new Multiply(this.numInput.value));
+  }
+
+  doDivide() {
+    this.store.dispatch(new Divide(this.numInput.value));
+  }
+
+  doDeleteHistoryEntry(entryId: number) {
+    this.store.dispatch(new DeleteHistoryEntry(entryId));
+  }
+
 
 }
