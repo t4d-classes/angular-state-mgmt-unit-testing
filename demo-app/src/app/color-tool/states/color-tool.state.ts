@@ -54,6 +54,21 @@ export class ColorToolState {
     // similar to this.users$.next(colors)
     // creating a new state, replacing the properties passed into
     // patch state
+
+    // const updatedState = {
+    //   colors: colors.filter(c => c.id !== action.colorId),
+    // };
+
+    // ctx.patchState(updatedState);
+
+    // const currentState = ctx.getState();
+
+    // ctx.setState({
+    //   ...currentState,
+    //   colors: colors.filter(c => c.id !== action.colorId),
+    // });
+
+
     ctx.patchState({
       colors: colors.filter(c => c.id !== action.colorId),
     });
