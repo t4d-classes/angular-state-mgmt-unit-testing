@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NgxsModule } from '@ngxs/store';
 
@@ -17,6 +18,7 @@ import { environment } from 'src/environments/environment';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NgxsModule.forRoot(
       [ColorToolState],
       { developmentMode: !environment.production })

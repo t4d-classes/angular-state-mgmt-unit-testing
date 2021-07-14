@@ -6,7 +6,7 @@ import { Store, Select } from '@ngxs/store';
 
 import { IColorToolStateModel } from '../../states/color-tool.state';
 import { Color, NewColor } from '../../models/colors';
-import { AppendColor, RemoveColor } from '../../actions/color-actions';
+import { AppendColor, RemoveColor, RefreshColors } from '../../actions/color-actions';
 
 @Component({
   selector: 'app-color-home',
@@ -23,27 +23,29 @@ export class ColorHomeComponent implements OnInit {
       ...c,
       name: c.name.toUpperCase(),
     }));
-})
-colors$!: Observable<Color[]>;
+  })
+  colors$!: Observable<Color[]>;
 
-constructor(private store: Store, private fb: FormBuilder) { }
+  constructor(private store: Store, private fb: FormBuilder) { }
 
-ngOnInit(): void {
-  this.colorForm = this.fb.group({
-    name: '',
-    hexcode: '',
-  });
-}
+  ngOnInit(): void {
+    this.colorForm = this.fb.group({
+      name: '',
+      hexcode: '',
+    });
 
-// STEP 4: Function
-doAddColor() {
-  const newColor = this.colorForm.value as NewColor;
-  // STEP 5: Dispatch the Action
-  this.store.dispatch(new AppendColor(newColor) /* STEP 4: Create Action */);
-}
+    this.store.dispatch(new RefreshColors());
+  }
 
-doDeleteColor(colorId: number) {
-  this.store.dispatch(new RemoveColor(colorId));
-}
+  // STEP 4: Function
+  doAddColor() {
+    const newColor = this.colorForm.value as NewColor;
+    // STEP 5: Dispatch the Action
+    this.store.dispatch(new AppendColor(newColor) /* STEP 4: Create Action */);
+  }
+
+  doDeleteColor(colorId: number) {
+    this.store.dispatch(new RemoveColor(colorId));
+  }
 
 }
