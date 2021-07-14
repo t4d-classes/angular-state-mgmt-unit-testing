@@ -1,19 +1,18 @@
 import { Injectable } from "@angular/core";
 import { State, Action, StateContext } from "@ngxs/store";
+import { patch } from '@ngxs/store/operators';
 
 import { HistoryEntry } from '../models/history';
 import { Add, Subtract, Multiply, Divide } from "../actions/calc-actions";
-import { DeleteHistoryEntry } from '../actions/history-actions';
+import { ClearHistory, DeleteHistoryEntry } from '../actions/history-actions';
 
 export interface ICalcToolStateModel {
-  result: number;
   history: HistoryEntry[];
 }
 
 @State<ICalcToolStateModel>({
   name: 'calcTool',
   defaults: {
-    result: 0,
     history: [],
   },
 })
@@ -22,9 +21,8 @@ export class CalcToolState {
 
   @Action(Add)
   add(ctx: StateContext<ICalcToolStateModel>, action: Add) {
-    const { result, history } = ctx.getState();
+    const { history } = ctx.getState();
     ctx.patchState({
-      result: result + action.value,
       history: [
         ...history,
         {
@@ -38,9 +36,8 @@ export class CalcToolState {
 
   @Action(Subtract)
   subtract(ctx: StateContext<ICalcToolStateModel>, action: Subtract) {
-    const { result, history } = ctx.getState();
+    const { history } = ctx.getState();
     ctx.patchState({
-      result: result - action.value,
       history: [
         ...history,
         {
@@ -54,9 +51,8 @@ export class CalcToolState {
 
   @Action(Multiply)
   multiply(ctx: StateContext<ICalcToolStateModel>, action: Multiply) {
-    const { result, history } = ctx.getState();
+    const { history } = ctx.getState();
     ctx.patchState({
-      result: result * action.value,
       history: [
         ...history,
         {
@@ -70,9 +66,8 @@ export class CalcToolState {
 
   @Action(Divide)
   divide(ctx: StateContext<ICalcToolStateModel>, action: Divide) {
-    const { result, history } = ctx.getState();
+    const { history } = ctx.getState();
     ctx.patchState({
-      result: result / action.value,
       history: [
         ...history,
         {
@@ -91,6 +86,18 @@ export class CalcToolState {
     ctx.patchState({
       history: history.filter(entry => entry.id !== action.entryId),
     });
+  }
+
+  @Action(ClearHistory)
+  clearHistory(ctx: StateContext<ICalcToolStateModel>) {
+    ctx.patchState({
+      history: [],
+    });
+
+    // same as above...
+    // ctx.setState(
+    //   patch({ history: [] })
+    // );
   }
 
 }

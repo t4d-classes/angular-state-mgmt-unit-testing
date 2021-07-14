@@ -7,7 +7,9 @@ import { Store, Select } from '@ngxs/store';
 import { ICalcToolStateModel } from '../../states/calc-tool.state';
 import { Add, Subtract, Multiply, Divide } from '../../actions/calc-actions';
 import { HistoryEntry } from '../../models/history';
-import { DeleteHistoryEntry } from '../../actions/history-actions';
+import { ClearHistory, DeleteHistoryEntry } from '../../actions/history-actions';
+import { resultSelector } from '../../selectors/result-selector';
+import { opsCountSelector } from '../../selectors/ops-count-selector';
 
 @Component({
   selector: 'app-calc-home',
@@ -18,10 +20,11 @@ export class CalcHomeComponent implements OnInit {
 
   numInput = new FormControl(0);
 
-  @Select((state: { calcTool: ICalcToolStateModel }) => {
-    return state.calcTool.result;
-  })
+  @Select(resultSelector)
   result$!: Observable<number>;
+
+  @Select(opsCountSelector)
+  opsCount$!: Observable<number[]>;
 
   @Select((state: { calcTool: ICalcToolStateModel }) => {
     return state.calcTool.history;
@@ -52,6 +55,11 @@ export class CalcHomeComponent implements OnInit {
 
   doDeleteHistoryEntry(entryId: number) {
     this.store.dispatch(new DeleteHistoryEntry(entryId));
+  }
+
+  doClear() {
+    this.numInput.setValue(0);
+    this.store.dispatch(new ClearHistory());
   }
 
 
