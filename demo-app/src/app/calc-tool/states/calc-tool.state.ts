@@ -1,43 +1,61 @@
 import { Injectable } from "@angular/core";
-import { State, Action, StateContext } from "@ngxs/store";
+import { State, Action, StateContext, Actions } from "@ngxs/store";
 import { patch } from '@ngxs/store/operators';
+import { tap } from "rxjs/operators";
+import { of } from 'rxjs';
 
 import { HistoryEntry } from '../models/history';
 import { Add, Subtract, Multiply, Divide } from "../actions/calc-actions";
 import { ClearHistory, DeleteHistoryEntry } from '../actions/history-actions';
+import { SetErrorMessage, ClearErrorMessage } from "../actions/status-actions";
 
 export interface ICalcToolStateModel {
   history: HistoryEntry[];
+  errorMessage: string;
 }
 
 @State<ICalcToolStateModel>({
   name: 'calcTool',
   defaults: {
     history: [],
+    errorMessage: '',
   },
 })
 @Injectable()
 export class CalcToolState {
 
+  constructor(private actions$: Actions) {
+    this.actions$.pipe(tap(a => {
+      console.log(a);
+    })).subscribe();
+  }
+
   @Action(Add)
   add(ctx: StateContext<ICalcToolStateModel>, action: Add) {
-    const { history } = ctx.getState();
-    ctx.patchState({
-      history: [
-        ...history,
-        {
-          id: Math.max(...history.map(h => h.id), 0) + 1,
-          opName: 'add',
-          opValue: action.value,
-        }
-      ]
-    });
+
+    return ctx.dispatch(new ClearErrorMessage()).pipe(tap(() => {
+      const { history } = ctx.getState();
+      ctx.patchState({
+        // errorMessage: '',
+        history: [
+          ...history,
+          {
+            id: Math.max(...history.map(h => h.id), 0) + 1,
+            opName: 'add',
+            opValue: action.value,
+          }
+        ]
+      });
+    }))
+
+
   }
 
   @Action(Subtract)
   subtract(ctx: StateContext<ICalcToolStateModel>, action: Subtract) {
     const { history } = ctx.getState();
     ctx.patchState({
+      errorMessage: '',
       history: [
         ...history,
         {
@@ -53,6 +71,7 @@ export class CalcToolState {
   multiply(ctx: StateContext<ICalcToolStateModel>, action: Multiply) {
     const { history } = ctx.getState();
     ctx.patchState({
+      errorMessage: '',
       history: [
         ...history,
         {
@@ -66,8 +85,18 @@ export class CalcToolState {
 
   @Action(Divide)
   divide(ctx: StateContext<ICalcToolStateModel>, action: Divide) {
+
+    if (action.value === 0) {
+      // ctx.patchState({
+      //   errorMessage: 'Cannot divide by 0.',
+      // });
+      return ctx.dispatch(new SetErrorMessage("Cannot divide by 0"));
+    }
+
+
     const { history } = ctx.getState();
     ctx.patchState({
+      errorMessage: '',
       history: [
         ...history,
         {
@@ -77,6 +106,8 @@ export class CalcToolState {
         }
       ]
     });
+
+    return of();
   }
 
   @Action(DeleteHistoryEntry)
@@ -96,9 +127,26 @@ export class CalcToolState {
 
     // same as above...
     ctx.setState(
-      patch<Partial<ICalcToolStateModel>>({ history: [] })
+      patch<Partial<ICalcToolStateModel>>({
+        errorMessage: '',
+        history: [],
+      }),
       // patch({ history: [] })
     );
+  }
+
+  @Action(SetErrorMessage)
+  setErrorMessage(ctx: StateContext<ICalcToolStateModel>, action: SetErrorMessage) {
+    ctx.patchState({
+      errorMessage: action.message,
+    })
+  }
+
+  @Action(ClearErrorMessage)
+  clearErrorMessage(ctx: StateContext<ICalcToolStateModel>) {
+    ctx.patchState({
+      errorMessage: '',
+    })
   }
 
 }

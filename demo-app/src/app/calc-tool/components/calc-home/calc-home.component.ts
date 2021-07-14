@@ -31,6 +31,10 @@ export class CalcHomeComponent implements OnInit {
   })
   history$!: Observable<HistoryEntry[]>;
 
+  @Select((state: { calcTool: ICalcToolStateModel }) => {
+    return state.calcTool.errorMessage;
+  })
+  errorMessage$!: Observable<string>;
 
   constructor(private store: Store) { }
 
