@@ -19,28 +19,31 @@ export class ColorHomeComponent implements OnInit {
 
   // STEP: 2 - Selector
   @Select((state: { colorTool: IColorToolStateModel }) => {
-    return state.colorTool.colors;
-  })
-  colors$!: Observable<Color[]>;
+    return state.colorTool.colors.map(c => ({
+      ...c,
+      name: c.name.toUpperCase(),
+    }));
+})
+colors$!: Observable<Color[]>;
 
-  constructor(private store: Store, private fb: FormBuilder) { }
+constructor(private store: Store, private fb: FormBuilder) { }
 
-  ngOnInit(): void {
-    this.colorForm = this.fb.group({
-      name: '',
-      hexcode: '',
-    });
-  }
+ngOnInit(): void {
+  this.colorForm = this.fb.group({
+    name: '',
+    hexcode: '',
+  });
+}
 
-  // STEP 4: Function
-  doAddColor() {
-    const newColor = this.colorForm.value as NewColor;
-    // STEP 5: Dispatch the Action
-    this.store.dispatch(new AppendColor(newColor) /* STEP 4: Create Action */);
-  }
+// STEP 4: Function
+doAddColor() {
+  const newColor = this.colorForm.value as NewColor;
+  // STEP 5: Dispatch the Action
+  this.store.dispatch(new AppendColor(newColor) /* STEP 4: Create Action */);
+}
 
-  doDeleteColor(colorId: number) {
-    this.store.dispatch(new RemoveColor(colorId));
-  }
+doDeleteColor(colorId: number) {
+  this.store.dispatch(new RemoveColor(colorId));
+}
 
 }

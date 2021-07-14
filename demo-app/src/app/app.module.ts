@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { UserAccountsModule } from './user-accounts/user-accounts.module';
+// import { UserAccountsModule } from './user-accounts/user-accounts.module';
 import { ColorToolModule } from './color-tool/color-tool.module';
-import { CalcToolModule } from './calc-tool/calc-tool.module';
+// import { CalcToolModule } from './calc-tool/calc-tool.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,9 +15,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserAccountsModule,
+    // UserAccountsModule,
     ColorToolModule,
-    CalcToolModule,
+    // CalcToolModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
