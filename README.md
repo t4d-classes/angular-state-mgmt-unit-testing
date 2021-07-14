@@ -69,9 +69,8 @@ npm install -D json-server npm-run-all
   "web": "ng serve",
   "rest": "json-server --port 3060 ./db.json",
   "build": "ng build",
-  "test": "ng test",
-  "lint": "ng lint",
-  "e2e": "ng e2e"
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test"
 },
 ```
 

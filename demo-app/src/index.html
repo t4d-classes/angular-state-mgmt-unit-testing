@@ -9,5 +9,213 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+
+    // console.log("I am here!");
+
+    // function doIt() {
+
+    //   setTimeout(function outputMe() {
+    //     console.log("hello");
+    //   },0);
+
+    //   console.log("goodbye");
+
+    // }
+
+    // doIt();
+
+
+    // const outer = () => {
+
+    //   console.log("called outer");
+
+    //   let p = 2;
+
+    //   setTimeout(function changeTwo() {
+    //     p = 4;
+    //   }, 2000);
+
+    //   return () => {
+    //     console.log(p);
+    //   };
+     
+    // };
+
+    // const inner = outer();
+
+    // inner();
+
+    // setTimeout(function calledInner2() {
+    //   inner();
+    // }, 4000);
+
+    // // console.dir(inner);
+
+    // const delay = () => Math.floor(Math.random() * 1000) + 500
+
+    // setTimeout(() => {
+    //   console.log('a');
+    //   setTimeout(() => {
+    //     console.log('b');
+    //     setTimeout(() => {
+    //       console.log('c');
+    //     }, delay());
+    //   }, delay());
+    // }, delay());
+
+    // function allDone() {
+    //   console.log("all done");
+    // }
+
+    // let count = 0;
+
+    // count++;
+    // setTimeout(() => {
+    //   console.log("a");
+    //   count--;
+    //   if (count === 0) {
+    //     allDone();
+    //   }
+    // }, delay());
+
+    // count++;
+    // setTimeout(() => {
+    //   console.log("b");
+    //   count--;
+    //   if (count === 0) {
+    //     allDone();
+    //   }
+    // }, delay());    
+
+    // count++;
+    // setTimeout(() => {
+    //   console.log("c");
+    //   count--;
+    //   if (count === 0) {
+    //     allDone();
+    //   }
+    // }, delay());
+
+    // class Promise {
+    //   constructor(fn) {
+
+    //     this.resolveFns = [];
+    //     this.rejectFns = [];
+
+    //     const resolveFn = data => {
+    //       this.resolveFns.forEach(fn => fn(data));
+    //     };
+
+    //     const rejectFn = data => {
+    //       this.rejectFns.forEach(fn => fn(data));
+    //     }
+
+    //     // push mechanism
+    //     fn(resolveFn, rejectFn);
+    //   }
+
+    //   then(fn) {
+    //     this.resolveFns.push(fn);
+    //   }
+
+    //   catch(fn) {
+    //     this.rejectFns.push(fn);
+    //   }
+    // }
+
+    // const p = new Promise((resolve, reject) => {
+
+    //   setTimeout(() => {
+    //     // 1
+    //     resolve("a");
+    //   }, delay());
+
+    // });
+
+    // 2
+    // p.then(result => {
+    //   console.log(result); 
+    // });
+
+    // console.log("this is fun!");
+
+    // const taskA = () => {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve("a");
+    //     }, delay());
+    //   });
+    // };
+
+    // const taskB = () => {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve("b");
+    //     }, delay());
+    //   });
+    // };
+
+    // const taskC = () => {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve("c");
+    //     }, delay());
+    //   });
+    // };
+
+    // taskA()
+    //   .then((r) => {
+    //     console.log(r);
+    //     return taskB();
+    //   })
+    //   .then((r) => {
+    //     console.log(r);
+    //     return taskC();
+    //   })
+    //   .then(r => {
+    //     console.log(r);
+    //   });
+
+    // Promise.all([taskA(), taskB(), taskC()]).then(results => {
+    //   console.log(results);
+    //   console.log("all done");
+    // })
+
+    // const doIt = async () => {
+    //   let r = await taskA();
+    //   console.log(r);
+
+    //   r = await taskB();
+    //   console.log(r);
+
+    //   r = await taskC();
+    //   console.log(r);
+    // };
+
+
+    // doIt();
+
+    // function* nums() {
+
+    //   console.log("a");
+    //   yield 1;
+    //   console.log("b");
+    //   yield 2;
+    //   console.log("c");
+    //   yield 3;
+
+    // }
+
+    // const gen = nums();
+
+    // for (let num of gen) {
+    //   console.log("in the loop");
+    //   console.log(num);
+    // }
+
+
+
+  </script>
 </body>
 </html>
