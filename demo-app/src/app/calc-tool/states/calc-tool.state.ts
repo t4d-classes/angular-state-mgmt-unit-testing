@@ -90,14 +90,15 @@ export class CalcToolState {
 
   @Action(ClearHistory)
   clearHistory(ctx: StateContext<ICalcToolStateModel>) {
-    ctx.patchState({
-      history: [],
-    });
+    // ctx.patchState({
+    //   history: [],
+    // });
 
     // same as above...
-    // ctx.setState(
-    //   patch({ history: [] })
-    // );
+    ctx.setState(
+      patch<Partial<ICalcToolStateModel>>({ history: [] })
+      // patch({ history: [] })
+    );
   }
 
 }
