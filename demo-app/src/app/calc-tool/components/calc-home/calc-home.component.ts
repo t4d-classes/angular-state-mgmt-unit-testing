@@ -7,7 +7,7 @@ import { Store, Select } from '@ngxs/store';
 import { ICalcToolStateModel } from '../../states/calc-tool.state';
 import { Add, Subtract, Multiply, Divide } from '../../actions/calc-actions';
 import { HistoryEntry } from '../../models/history';
-import { ClearHistory, DeleteHistoryEntry } from '../../actions/history-actions';
+import { ClearHistory, DeleteHistoryEntry, RefreshHistory } from '../../actions/history-actions';
 import { resultSelector } from '../../selectors/result-selector';
 import { opsCountSelector } from '../../selectors/ops-count-selector';
 
@@ -39,6 +39,7 @@ export class CalcHomeComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new RefreshHistory());
   }
 
   doAdd() {

@@ -6,8 +6,9 @@ import { of } from 'rxjs';
 
 import { HistoryEntry } from '../models/history';
 import { Add, Subtract, Multiply, Divide } from "../actions/calc-actions";
-import { ClearHistory, DeleteHistoryEntry } from '../actions/history-actions';
+import { ClearHistory, DeleteHistoryEntry, RefreshHistory } from '../actions/history-actions';
 import { SetErrorMessage, ClearErrorMessage } from "../actions/status-actions";
+import { HistoryService } from "../services/history.service";
 
 export interface ICalcToolStateModel {
   history: HistoryEntry[];
@@ -24,10 +25,17 @@ export interface ICalcToolStateModel {
 @Injectable()
 export class CalcToolState {
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions, private historySvc: HistoryService) {
     this.actions$.pipe(tap(a => {
       console.log(a);
     })).subscribe();
+  }
+
+  @Action(RefreshHistory)
+  refreshHistory(ctx: StateContext<ICalcToolStateModel>) {
+    return this.historySvc.all().pipe(tap(history => ctx.patchState({
+      history,
+    })));
   }
 
   @Action(Add)

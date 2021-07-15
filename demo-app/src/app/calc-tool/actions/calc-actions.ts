@@ -1,5 +1,4 @@
 
-
 export class Add {
   static readonly type = '[MathOp] Add';
   constructor(public value: number) { }
