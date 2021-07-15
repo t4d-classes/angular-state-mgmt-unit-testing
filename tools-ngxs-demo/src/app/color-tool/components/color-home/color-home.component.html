@@ -1,0 +1,4 @@
+<app-tool-header headerText="Color Tool"></app-tool-header>
+<app-item-list [items]="colors$ | async" [content]="colorContent"
+  [id]="colorId" (deleteItem)="doRemoveColor($event)"></app-item-list>
+<app-color-form buttonText="Add Color" (submitColor)="doAppendColor($event)"></app-color-form>

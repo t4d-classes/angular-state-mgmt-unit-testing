@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let item of items">
+    {{content(item)}}
+    <button (click)="doDeleteItem(id(item))">Delete</button>
+  </li>
+</ul>

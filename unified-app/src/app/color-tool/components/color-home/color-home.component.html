@@ -1,0 +1,27 @@
+<h1>Color Tool</h1>
+
+<p *ngIf="errorMessage$ | async" class="error">
+  {{errorMessage$ | async}}
+</p>
+
+<button type="button" (click)="doBrokenRefresh()">Broken Refresh</button>
+
+<ul>
+  <li *ngIf="(colors$ | async)!.length === 0">There are no colors.</li>
+  <li *ngFor="let color of colors$ | async">
+    {{color.name}} {{color.hexcode}}
+    <button (click)="doDeleteColor(color.id)">X</button>
+  </li>
+</ul>
+
+<form [formGroup]="colorForm">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+  <label>
+    Hexcode:
+    <input type="text" formControlName="hexcode">
+  </label>
+  <button (click)="doAddColor()">Add</button>
+</form>
