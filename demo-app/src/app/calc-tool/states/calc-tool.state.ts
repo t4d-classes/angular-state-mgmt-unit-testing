@@ -31,6 +31,14 @@ export class CalcToolState {
     })).subscribe();
   }
 
+  appendHistoryEntry(ctx: StateContext<ICalcToolStateModel>, opName: string, opValue: number) {
+    return ctx.dispatch(new ClearErrorMessage()).pipe(switchMap(() => {
+      return this.historySvc
+        .append({ opName, opValue })
+        .pipe(switchMap(() => ctx.dispatch(new RefreshHistory())));
+    }));
+  }
+
   @Action(RefreshHistory)
   refreshHistory(ctx: StateContext<ICalcToolStateModel>) {
     return this.historySvc.all().pipe(tap(history => ctx.patchState({
@@ -68,99 +76,52 @@ export class CalcToolState {
     // }));
 
     // clear the message and do the append/refresh in the same pipeline
-    return ctx.dispatch(new ClearErrorMessage()).pipe(switchMap(() => {
-      return this.historySvc
-        .append({ opName: 'add', opValue: action.value })
-        .pipe(switchMap((r) => {
-          console.log(r);
-          return ctx.dispatch(new RefreshHistory());
-        }));
-    }));
-
+    // return ctx.dispatch(new ClearErrorMessage()).pipe(switchMap(() => {
+    //   return this.historySvc
+    //     .append({ opName: 'add', opValue: action.value })
+    //     .pipe(switchMap((r) => {
+    //       console.log(r);
+    //       return ctx.dispatch(new RefreshHistory());
+    //     }));
+    // }));
+    return this.appendHistoryEntry(ctx, 'add', action.value);
   }
 
   @Action(Subtract)
   subtract(ctx: StateContext<ICalcToolStateModel>, action: Subtract) {
-    const { history } = ctx.getState();
-    ctx.patchState({
-      errorMessage: '',
-      history: [
-        ...history,
-        {
-          id: Math.max(...history.map(h => h.id), 0) + 1,
-          opName: 'subtract',
-          opValue: action.value,
-        }
-      ]
-    });
+    return this.appendHistoryEntry(ctx, 'subtract', action.value);
+
   }
 
   @Action(Multiply)
   multiply(ctx: StateContext<ICalcToolStateModel>, action: Multiply) {
-    const { history } = ctx.getState();
-    ctx.patchState({
-      errorMessage: '',
-      history: [
-        ...history,
-        {
-          id: Math.max(...history.map(h => h.id), 0) + 1,
-          opName: 'multiply',
-          opValue: action.value,
-        }
-      ]
-    });
+    return this.appendHistoryEntry(ctx, 'multiply', action.value);
   }
 
   @Action(Divide)
   divide(ctx: StateContext<ICalcToolStateModel>, action: Divide) {
 
     if (action.value === 0) {
-      // ctx.patchState({
-      //   errorMessage: 'Cannot divide by 0.',
-      // });
       return ctx.dispatch(new SetErrorMessage("Cannot divide by 0"));
     }
 
-
-    const { history } = ctx.getState();
-    ctx.patchState({
-      errorMessage: '',
-      history: [
-        ...history,
-        {
-          id: Math.max(...history.map(h => h.id), 0) + 1,
-          opName: 'divide',
-          opValue: action.value,
-        }
-      ]
-    });
-
-    return of();
+    return this.appendHistoryEntry(ctx, 'divide', action.value);
   }
 
   @Action(DeleteHistoryEntry)
   deleteHistoryEntry(ctx: StateContext<ICalcToolStateModel>, action: DeleteHistoryEntry) {
-    const { history } = ctx.getState();
-
-    ctx.patchState({
-      history: history.filter(entry => entry.id !== action.entryId),
-    });
+    return this.historySvc
+      .remove(action.entryId)
+      .pipe(switchMap(() => ctx.dispatch(new RefreshHistory())));
   }
 
   @Action(ClearHistory)
   clearHistory(ctx: StateContext<ICalcToolStateModel>) {
-    // ctx.patchState({
-    //   history: [],
-    // });
-
-    // same as above...
-    ctx.setState(
-      patch<Partial<ICalcToolStateModel>>({
-        errorMessage: '',
-        history: [],
-      }),
-      // patch({ history: [] })
-    );
+    return ctx.dispatch(new ClearErrorMessage())
+      .pipe(
+        switchMap(() => this.historySvc.removeAll()),
+        switchMap(() => ctx.dispatch(new RefreshHistory())),
+      );
   }
 
   @Action(SetErrorMessage)
