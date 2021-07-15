@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { Store, Select } from '@ngxs/store';
@@ -38,10 +39,19 @@ export class ColorHomeComponent implements OnInit {
   }
 
   // STEP 4: Function
-  doAddColor() {
+  async doAddColor() {
     const newColor = this.colorForm.value as NewColor;
     // STEP 5: Dispatch the Action
-    this.store.dispatch(new AppendColor(newColor) /* STEP 4: Create Action */);
+    // this.store
+    //   .dispatch(new AppendColor(newColor))
+    //   .pipe(
+    //     tap(data => { console.log(data); console.log("all done"); }
+    //     )).subscribe();
+
+    const state = await this.store.dispatch(new AppendColor(newColor)).toPromise();
+
+    console.log(state);
+
   }
 
   doDeleteColor(colorId: number) {

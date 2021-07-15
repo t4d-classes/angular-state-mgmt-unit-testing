@@ -26,6 +26,26 @@
       "id": 3,
       "name": "blue",
       "hexcode": "#0000ff"
+    },
+    {
+      "name": "a",
+      "hexcode": "a",
+      "id": 4
+    },
+    {
+      "name": "b",
+      "hexcode": "b",
+      "id": 5
+    },
+    {
+      "name": "C",
+      "hexcode": "c",
+      "id": 6
+    },
+    {
+      "name": "d",
+      "hexcode": "d",
+      "id": 7
     }
   ],
   "cars": [
