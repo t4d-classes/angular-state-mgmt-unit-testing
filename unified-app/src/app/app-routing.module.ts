@@ -7,13 +7,13 @@ import { UserAccountsHomeComponent } from './user-accounts/components/user-accou
 import { CalcHomeComponent } from './calc-tool/components/calc-home/calc-home.component';
 
 const routes: Routes = [
-  { path: "user-accounts", component: UserAccountsHomeComponent },
+  { path: "user-accounts", component: UserAccountsHomeComponent }, // does not use NGXS
   {
     path: "color-tool",
     loadChildren: () => import('./color-tool/color-tool.module').then(m => m.ColorToolModule),
-  },
-  { path: "car-tool", component: CarHomeComponent },
-  { path: "calc-tool", component: CalcHomeComponent },
+  }, // does use NGXS
+  { path: "car-tool", component: CarHomeComponent }, // does not use NGXS
+  { path: "calc-tool", component: CalcHomeComponent }, // does use NGXS
   { path: "", component: HomeComponent },
   { path: "", pathMatch: "full", redirectTo: "/home" },
 ];
