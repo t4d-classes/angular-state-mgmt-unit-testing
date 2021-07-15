@@ -1,0 +1,17 @@
+
+
+GET http://localhost:3060/history
+
+###
+
+POST http://localhost:3060/history
+Content-Type: application/json
+
+{
+  "opName": "div",
+  "opValue": 2
+}
+
+###
+
+DELETE http://localhost:3060/history/3

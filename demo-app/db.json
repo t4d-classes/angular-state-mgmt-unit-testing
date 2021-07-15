@@ -1,8 +1,32 @@
 {
+  "history": [
+    {
+      "id": 1,
+      "opName": "add",
+      "opValue": 2
+    },
+    {
+      "id": 2,
+      "opName": "multiply",
+      "opValue": 5
+    }
+  ],
   "colors": [
-    { "id": 1, "name": "red", "hexcode": "#ff0000" },
-    { "id": 2, "name": "green", "hexcode": "#00ff00" },
-    { "id": 3, "name": "blue", "hexcode": "#0000ff" }
+    {
+      "id": 1,
+      "name": "red",
+      "hexcode": "#ff0000"
+    },
+    {
+      "id": 2,
+      "name": "green",
+      "hexcode": "#00ff00"
+    },
+    {
+      "id": 3,
+      "name": "blue",
+      "hexcode": "#0000ff"
+    }
   ],
   "cars": [
     {
