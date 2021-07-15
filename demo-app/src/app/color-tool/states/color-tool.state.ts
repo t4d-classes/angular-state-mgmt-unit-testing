@@ -4,7 +4,8 @@ import { State, Action, StateContext } from "@ngxs/store";
 import { Color } from "../models/colors";
 import { AppendColor, RemoveColor, RefreshColors } from "../actions/color-actions";
 import { ColorsApiService } from "../services/colors-api.service";
-import { tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
+import { of } from "rxjs";
 
 export interface IColorToolStateModel {
   colors: Color[];
@@ -25,7 +26,17 @@ export class ColorToolState {
   @Action(RefreshColors)
   refreshColors(ctx: StateContext<IColorToolStateModel>) {
     return this.colorsApi.all()
-      .pipe(tap(colors => ctx.patchState({ colors })))
+      .pipe(
+        tap(colors => ctx.patchState({ colors })),
+        catchError((err: any) => {
+          // patch state to show an error
+          // return a dispatch that fires off a set error action
+          // do some other operation that returns an observable
+          console.log(err);
+          ctx.patchState({ colors: [] })
+          return of([]);
+        }),
+      );
   }
 
   // STEP 6: Run the reducer to apply the action to the current state, to create a new state

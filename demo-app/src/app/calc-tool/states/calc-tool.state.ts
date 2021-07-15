@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { State, Action, StateContext, Actions } from "@ngxs/store";
 import { patch } from '@ngxs/store/operators';
-import { tap } from "rxjs/operators";
+import { tap, switchMap } from "rxjs/operators";
 import { of } from 'rxjs';
 
 import { HistoryEntry } from '../models/history';
@@ -41,21 +41,41 @@ export class CalcToolState {
   @Action(Add)
   add(ctx: StateContext<ICalcToolStateModel>, action: Add) {
 
-    return ctx.dispatch(new ClearErrorMessage()).pipe(tap(() => {
-      const { history } = ctx.getState();
-      ctx.patchState({
-        // errorMessage: '',
-        history: [
-          ...history,
-          {
-            id: Math.max(...history.map(h => h.id), 0) + 1,
-            opName: 'add',
-            opValue: action.value,
-          }
-        ]
-      });
-    }))
+    // ignore clearing the message, do the append, and do the refresh as a side-effect
+    // return this.historySvc
+    //   .append({ opName: 'add', opValue: action.value })
+    //   .pipe(tap((r) => {
+    //     console.log(r);
+    //     ctx.dispatch(new RefreshHistory());
+    //   }));
 
+    // ignore clearing the message, do the append and refresh in the same pipeline
+    // return this.historySvc
+    //   .append({ opName: 'add', opValue: action.value })
+    //   .pipe(switchMap((r) => {
+    //     console.log(r);
+    //     return ctx.dispatch(new RefreshHistory());
+    //   }));
+
+    // clear the message, do the append/refresh as a side-effect
+    // return ctx.dispatch(new ClearErrorMessage()).pipe(tap(() => {
+    //   this.historySvc
+    //     .append({ opName: 'add', opValue: action.value })
+    //     .pipe(switchMap((r) => {
+    //       console.log(r);
+    //       return ctx.dispatch(new RefreshHistory());
+    //     })).subscribe();
+    // }));
+
+    // clear the message and do the append/refresh in the same pipeline
+    return ctx.dispatch(new ClearErrorMessage()).pipe(switchMap(() => {
+      return this.historySvc
+        .append({ opName: 'add', opValue: action.value })
+        .pipe(switchMap((r) => {
+          console.log(r);
+          return ctx.dispatch(new RefreshHistory());
+        }));
+    }));
 
   }
 

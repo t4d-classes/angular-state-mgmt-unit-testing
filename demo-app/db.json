@@ -9,6 +9,21 @@
       "id": 2,
       "opName": "multiply",
       "opValue": 5
+    },
+    {
+      "opName": "add",
+      "opValue": 3,
+      "id": 3
+    },
+    {
+      "opName": "add",
+      "opValue": 4,
+      "id": 4
+    },
+    {
+      "opName": "add",
+      "opValue": 5,
+      "id": 5
     }
   ],
   "colors": [

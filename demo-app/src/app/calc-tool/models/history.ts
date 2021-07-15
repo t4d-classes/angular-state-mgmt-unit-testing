@@ -5,3 +5,5 @@ export type HistoryEntry = {
   opName: string;
   opValue: number;
 };
+
+export type NewHistoryEntry = Omit<HistoryEntry, "id">;
