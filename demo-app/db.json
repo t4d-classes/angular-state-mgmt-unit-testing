@@ -1,5 +1,56 @@
 {
-  "history": [],
+  "history": [
+    {
+      "opName": "add",
+      "opValue": 2,
+      "id": 1
+    },
+    {
+      "opName": "add",
+      "opValue": 2,
+      "id": 2
+    },
+    {
+      "opName": "multiply",
+      "opValue": 2,
+      "id": 4
+    },
+    {
+      "opName": "multiply",
+      "opValue": 2,
+      "id": 5
+    },
+    {
+      "opName": "multiply",
+      "opValue": 2,
+      "id": 6
+    },
+    {
+      "opName": "multiply",
+      "opValue": 2,
+      "id": 7
+    },
+    {
+      "opName": "subtract",
+      "opValue": 2,
+      "id": 8
+    },
+    {
+      "opName": "subtract",
+      "opValue": 2,
+      "id": 9
+    },
+    {
+      "opName": "divide",
+      "opValue": 2,
+      "id": 10
+    },
+    {
+      "opName": "divide",
+      "opValue": 2,
+      "id": 11
+    }
+  ],
   "colors": [
     {
       "id": 1,
