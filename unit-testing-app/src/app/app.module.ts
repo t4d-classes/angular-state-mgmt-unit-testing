@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolHeaderComponent } from './components/tool-header/tool-header.component';
+import { ItemListComponent } from './components/item-list/item-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolHeaderComponent
+    ToolHeaderComponent,
+    ItemListComponent
   ],
   imports: [
     BrowserModule,
